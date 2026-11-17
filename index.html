@@ -201,8 +201,8 @@ input[type=file]{background:#1e293b;padding:10px}
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "COLOCA_AQUI_TEU_PROJECT_URL";
-const SUPABASE_KEY = "COLOCA_AQUI_TUA_ANON_KEY";
+const SUPABASE_URL = "https://efruyhdwxcudelpcddfv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_L3Lt6UpR3EbWmJBr6FrDRg_b1_xdrQy";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const SENHA_ADMIN="naulangue"; const FUNDO_PADRAO="https://i.postimg.cc/90G0rprn/Meta-AI-911177574-1828990132569904-4933838680272502595-n-20261117-094343.jpg";
 const MAX_PERGUNTAS=20;
@@ -299,7 +299,7 @@ function renderChatAluno(){const box=document.getElementById('chatBox'); if(!box
 function renderChatAdminSelect(){const sel=document.getElementById('chatAlunoSelect'); if(!sel) return; const ids=[...new Set(chats.map(c=>c.alunoId))]; sel.innerHTML=`<option value="">Escolhe aluno...</option>`+ids.map(id=>{const n=chats.find(c=>c.alunoId===id)?.alunoNome||"Aluno"; return `<option value="${id}" ${chatAlunoSelecionado===id?"selected":""}>${esc(n)}</option>`}).join("");}
 window.carregarChatAdmin=function(){const sel=document.getElementById('chatAlunoSelect'); if(!sel) return; chatAlunoSelecionado=sel.value||null; const box=document.getElementById('chatAdminBox'); if(!box) return; if(!chatAlunoSelecionado){box.innerHTML="<p class='small'>Escolhe aluno.</p>"; return;} const meus=chats.filter(c=>String(c.alunoId)===String(chatAlunoSelecionado)); box.innerHTML=meus.length?meus.map(c=>`<div class="chat-msg ${c.de==='admin'?'me':'admin'}"><b>${c.de==='admin'?'Admin':'Aluno'}:</b> ${esc(c.texto)}</div>`).join(""):"<p class='small'>Sem mensagens.</p>"; box.scrollTop=box.scrollHeight;};
 window.enviarChatAdmin=async function(){const txt=document.getElementById('chatAdminInput').value.trim(); if(!txt||!chatAlunoSelecionado) return alert("Escolhe aluno e escreve mensagem!"); const nome=chats.find(c=>String(c.alunoId)===String(chatAlunoSelecionado))?.alunoNome||"Aluno"; await dbInsert("chats",{alunoId:String(chatAlunoSelecionado),alunoNome:nome,de:"admin",texto:txt,data:Date.now()}); document.getElementById('chatAdminInput').value=""; await carregarTudo();};
-(async function(){ if(SUPABASE_URL.includes("COLOCA_AQUI")){ alert("⚠️ Falta colocar o SUPABASE_URL e SUPABASE_KEY no topo do script! Vai em Supabase > Settings > API"); return; } await criarPadroesSeVazio(); await carregarTudo(); await tentarAutoLogin(); renderAll(); })();
+(async function(){ await criarPadroesSeVazio(); await carregarTudo(); await tentarAutoLogin(); renderAll(); })();
 </script>
 </body>
 </html>
